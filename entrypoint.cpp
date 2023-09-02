@@ -128,8 +128,6 @@ int main(int, char**)
     bool show_demo_window = true;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    int tabs = 0;
-    bool checkbox = false;
 
     // Main loop
     bool done = false;
@@ -162,101 +160,9 @@ int main(int, char**)
         ImGui_ImplDX9_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
- 
-            ImGui::SetNextWindowSize(ImVec2(830, 470));
-            ImGui::Begin("##menu_for_yougame_free", nullptr, ImGuiWindowFlags_MainMenu);
-            {
-                const ImVec2 position = ImGui::GetWindowPos();
-                const float width = ImGui::GetWindowWidth();
-                const float height = ImGui::GetWindowHeight();
-
-                /* backend filled rect's */
-
-                ImGui::GetBackgroundDrawList()->AddRectFilled(ImVec2(position.x, position.y), ImVec2(position.x + width, position.y + 30), ImColor(24, 24, 24, 255), 0.0f);
-                ImGui::GetBackgroundDrawList()->AddRectFilled(ImVec2(position.x, position.y + 50), ImVec2(position.x + width, position.y + height), ImColor(24, 24, 24, 255), 0.0f);
-
-                /* backend rect's */
-
-                ImGui::GetBackgroundDrawList()->AddRect(ImVec2(position.x + 5, position.y + 55), ImVec2((position.x + width) - 4, (position.y + height) - 4), ImColor(0, 0, 0, 255), 0.0f, 0, 0.5f);
-                ImGui::GetBackgroundDrawList()->AddRect(ImVec2(position.x + 5, position.y + 55), ImVec2((position.x + width) - 5, (position.y + height) - 5), ImColor(255, 255, 255, 255), 0.0f, 0, 0.5f);
-
-                /* fade line */
-
-                ImGui::GetBackgroundDrawList()->AddRectFilledMultiColor(ImVec2(position.x, position.y), ImVec2(position.x + (width / 2), position.y + 5), ImColor(255, 255, 255, 0), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 0));
-                ImGui::GetBackgroundDrawList()->AddRectFilledMultiColor(ImVec2(position.x + (width / 2), position.y), ImVec2(position.x + width, position.y + 5), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 0), ImColor(255, 255, 255, 0), ImColor(255, 255, 255, 255));
-
-                /* title text */
-
-                ImGui::GetBackgroundDrawList()->AddText(titlefont, 13.f, ImVec2(position.x + 6, position.y + 11), ImColor(0, 0, 0, 255), "menu created by bluebird");
-                ImGui::GetBackgroundDrawList()->AddText(titlefont, 13.f, ImVec2(position.x + 5, position.y + 10), ImColor(255, 255, 255, 255), "menu created by bluebird");
-
-                /* tabs */
-
-                ImGui::SetCursorPos(ImVec2(width - 305, 8));
-                if (elements::tab("rage", tabs == 0))
-                {
-                    tabs = 0;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("legit", tabs == 1))
-                {
-                    tabs = 1;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("visuals", tabs == 2))
-                {
-                    tabs = 2;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("misc", tabs == 3))
-                {
-                    tabs = 3;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("skins", tabs == 4))
-                {
-                    tabs = 4;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("fonts", tabs == 5))
-                {
-                    tabs = 5;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("lua", tabs == 6))
-                {
-                    tabs = 6;
-                }
-
-                ImGui::SameLine();
-                if (elements::tab("mr", tabs == 7))
-                {
-                    tabs = 7;
-                }
-
-                switch (tabs)
-                {
-                    case 0:
-                        ImGui::SetCursorPos(ImVec2(10, 60));
-                        elements::checkbox("old style", &checkbox);
-                        break;
-                    case 1: 
-                        
-                        break;
-                    case 2:
-                        
-                        break;
-                }
-            }
-            ImGui::End();
-
-        // Rendering
+        {
+            elements::menu();
+        }
         ImGui::EndFrame();
         g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
         g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
